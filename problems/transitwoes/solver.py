@@ -13,33 +13,26 @@ ds = readToIntList()
 bs = readToIntList()
 cs = readToIntList()
 
-# print((s,t,n))
-# print()
-
-# print(ds)
-# print()
-# print(bs)
-# print()
-# print(cs)
-
-# s leave home
-# t class begins
-# n trasit routes
-# d walk time
-# b rides bus time
-# walking i+1 bus
-# c_i bus arrives a interval
-
 travelTime = 0
-travelTime += sum(ds)
-travelTime += sum(bs)
-travelTime += sum(cs)
-# for i in range(n):
-#     travelTime += ds[i]
-#     travelTime += bs[i]
-#     travelTime += s[i]
 
-result = "yes" if travelTime <= t else "no"
+# print(f"Leaves home: {s}, needs to be at class {t}")
+for i in range(0,n+1):
+    travelTime += ds[i]
+    # print(f"d_{i}: Time spend on walk to bus, {travelTime}")
+    
+    if i>0 and i<=n:
+        travelTime += bs[i-1]
+        # print(f"b_{i}: Time spend on bus, {travelTime}")
+    
+    if i<n:
+        if travelTime <= cs[i-1]:
+            m = cs[i] - travelTime
+        else:
+            m = travelTime % cs[i]
+        travelTime += m
+        # print(f"c_{i}: Time spend bus, interval wait {travelTime}")
 
-print(travelTime)
+result = "yes" if s+travelTime <= t else "no"
+
+# print(travelTime)
 print(result)

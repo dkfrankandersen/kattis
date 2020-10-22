@@ -1,3 +1,4 @@
+from os import name
 import sys
 import os
 from io import BytesIO
@@ -60,10 +61,12 @@ def create_solution_file(problem_id, problem_url, list_of_samples):
     filename = "solver.py"
     print(f"Creating solution file: {problem_id}/{filename}")
     f = open(f"{problem_id}/{filename}", "x")
-    f.write("import sys\n")
-    f.write(f"# Solution for Kattis problem {problem_id}\n# Problem url: {problem_url}\n\n# Sample-data")
-    for filename in list_of_samples:
-        f.write(f"#{filename}")
+    f.write("import sys\n\n")
+    f.write(f"# Solution for Kattis problem {problem_id}\n")
+    f.write(f"# Problem url: {problem_url}\n\n# Sample-data files\n")
+    for filename in sorted(list_of_samples):
+        f.write(f"# {filename}\n")
+    f.write("\n")
     f.close()
 
 def main():
